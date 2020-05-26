@@ -1,0 +1,12 @@
+data res;
+set heh.order_fact(where=(year(Order_Date)=2007));
+month = month(Order_Date);
+run;
+data res;
+set res;
+by month;
+if first.month then Total=0;
+Total+1;
+run;
+proc print data=res(drop=month);
+run;

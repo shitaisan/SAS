@@ -1,0 +1,14 @@
+data split(keep = Employee_ID Charity);
+set heh.employee_donations;
+PctLoc = find(Recipients,'%');
+if PctLoc > 0 then do;
+	Charity=substr(Recipients,1,PctLoc);
+	output;
+	Charity=substr(Recipients,PctLoc+3);
+	output;
+end;
+if PctLoc < 0 then do;
+	Charity=catt(Recipients);
+	output;
+end;
+run;

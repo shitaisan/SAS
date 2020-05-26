@@ -1,0 +1,11 @@
+data instore(keep= Order_ID Customer_ID Order_Date) delivery(keep = Order_ID Customer_ID Order_Date ShipDays);
+set heh.orders(where=(Order_Type=1) rename=(Order_Date=temp)); *obs=30);
+ShipDays=Delivery_Date-temp;
+Order_Date = year(temp);
+if (ShipDays=0) then output instore;
+else output delivery;
+run;
+proc print data=delivery;
+proc freq data=instore;
+tables Order_Date;
+run;

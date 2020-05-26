@@ -1,0 +1,10 @@
+data res(keep=Customer_ID Total_Sales);
+set heh.order_summary;
+by Customer_ID;
+if first.Customer_ID then Total_Sales=0;
+Total_Sales+Sale_Amt;
+if last.Customer_ID then output;
+format Total_Sales dollar11.2;
+run;
+proc print data=res;
+run;

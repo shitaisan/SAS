@@ -1,0 +1,11 @@
+data sales(keep=Employee_ID Job_Title Manager_ID) exec(keep=Employee_ID Job_Title);
+set heh.employee_organization;
+select (Department);
+when ("Sales") output sales;
+when ("Executives") output exec;
+otherwise;
+end;
+run;
+proc print data=sales(obs=6);
+proc print data=exec(Firstobs=2 obs=3);
+run;

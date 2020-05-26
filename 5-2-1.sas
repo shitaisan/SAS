@@ -1,0 +1,25 @@
+data names(keep = New_Name Name Gender);
+set heh.customers_ex5;
+pos = Find(Name, ',');
+temp = PropCase(Cat(SubStr(Name, pos+1), SubStr(Name, 1, pos-1)));
+if Gender='F' then New_Name = Catt('Ms.', temp);
+if Gender='M' then New_Name = Catt('Mr.', temp);
+output names;
+run;
+data silver gold platinum;
+set heh.customers_ex5;
+pos = Find(Customer_ID, '0');
+if (pos>1) then do
+which = Lowcase(SubStr(Customer_ID, 1, pos-1));
+Customer_ID = Tranwrd(Customer_ID, '-00-', '-15-');
+if (which='silver') then output silver;
+else if (which='gold') then output gold;
+else if (which='platinum') then output platinum;
+end;
+keep Customer_ID Name Country;
+run;
+proc print data = names;
+proc print data = silver;
+proc print data = gold;
+proc print data = platinum;
+run;

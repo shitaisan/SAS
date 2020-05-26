@@ -1,0 +1,14 @@
+data fast slow veryslow;
+set heh.orders(where=(Order_Type=2 OR Order_Type=3));
+ShipDays=Delivery_Date-Order_Date;
+select;
+when (ShipDays<3) output fast;
+when (ShipDays=>5 & ShipDays<=7) output slow;
+when (ShipDays>7) output veryslow;
+otherwise;
+end;
+drop Employee_ID;
+run;
+proc print data = veryslow;
+title "Very Slow Delivery";
+run;
